@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FactionFly:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FactionFly_jar</output-path>
+    <root id="archive" name="FactionFly.jar">
+      <element id="module-output" name="FactionFly" />
+    </root>
+  </artifact>
+</component>

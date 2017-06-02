@@ -1,0 +1,8 @@
+name: FactionFly
+version: @version@
+main: nightmarenetwork.factionfly.FactionFly
+prefix: [FactionFly]
+depend: [Factions]
+authors: [MatiasME]
+description: A faction fly plugin
+website: https://www.spigotmc.org/resources/authors/writkas.74734/

@@ -1,0 +1,22 @@
+# A plugin by MatiasME
+#
+# Permissions
+# ffly.own
+# ffly.truce
+# ffly.ally
+# ffly.enemy
+# ffly.safezone
+# ffly.warzone
+#
+# Activate in worlds:
+worlds:
+  - world
+  - world_nether
+  - world_the_end
+#
+disable-enemy-near:
+  enable: true
+  blocks: 32
+#
+# Fly check seconds
+fly-check: 5
