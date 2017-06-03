@@ -1,5 +1,6 @@
 package nightmarenetwork.factionfly;
 
+import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
@@ -46,11 +47,49 @@ public class PlayerTerritory {
         return false;
     }
 
+    public boolean isInTruceTerritory() {
+        boolean isAPermittedWold = checkWold();
+
+        if (isAPermittedWold) {
+            MPlayer mplayer = MPlayer.get(player);
+            Faction faction;
+
+            Location location = player.getLocation();
+            faction = BoardColl.get().getFactionAt(PS.valueOf(location));
+
+            Rel rel = faction.getRelationWish(mplayer.getFaction());
+
+            if (rel.getName().equalsIgnoreCase("truce"))
+                return true;
+        }
+
+        return false;
+    }
+
+    public boolean isInAllyTerritory() {
+        boolean isAPermittedWold = checkWold();
+
+        if (isAPermittedWold) {
+            MPlayer mplayer = MPlayer.get(player);
+            Faction faction;
+
+            Location location = player.getLocation();
+            faction = BoardColl.get().getFactionAt(PS.valueOf(location));
+
+            Rel rel = faction.getRelationWish(mplayer.getFaction());
+
+            if (rel.getName().equalsIgnoreCase("ally"))
+                return true;
+        }
+
+        return false;
+    }
+
     public boolean checkWold() {
         String playerWorld = player.getWorld().getName();
 
         for (String world : worlds) {
-            player.sendMessage(world);
+            //player.sendMessage(world);
             if (playerWorld.equalsIgnoreCase(world)) return true;
         }
 

@@ -25,7 +25,8 @@ public class EventFlyTask implements Listener {
     @EventHandler
     public void OnJoinEvent(PlayerJoinEvent event) {
         taskFly = new TaskFly(plugin, event.getPlayer());
-        taskFly.runTaskTimer(plugin, 0, 20 * 5);
+        int flyCheck = plugin.getConfig().getInt("fly-check");
+        taskFly.runTaskTimer(plugin, 0, 20 * flyCheck);
     }
 
     @EventHandler

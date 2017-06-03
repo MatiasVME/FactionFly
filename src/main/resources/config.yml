@@ -1,22 +1,27 @@
 # A plugin by MatiasME
 #
 # Permissions
-# ffly.own
-# ffly.truce
-# ffly.ally
-# ffly.enemy
-# ffly.safezone
-# ffly.warzone
-#
+# - ffly.own
+# - ffly.truce
+# - ffly.ally
+
 # Activate in worlds:
 worlds:
   - world
   - world_nether
   - world_the_end
-#
+
 disable-enemy-near:
   enable: true
   blocks: 32
-#
+
 # Fly check seconds
-fly-check: 5
+fly-check: 1
+
+# Messages
+messages:
+  not-flying: "&3You're not flying anymore."
+  not-flying-enemy-near: "&3You can not fly when there is an enemy nearby."
+  flying-own: "&3You can fly in your territory."
+  flying-truce: "&3You can fly in truce territory."
+  flying-ally: "&3You can fly in ally territory."

@@ -1,6 +1,8 @@
 package nightmarenetwork.factionfly.Tasks;
 
 import nightmarenetwork.factionfly.PlayerTerritory;
+import nightmarenetwork.factionfly.Utilities.PlayerUtilities;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -12,30 +14,74 @@ public class TaskFly extends BukkitRunnable {
     private Plugin plugin;
     private Player player;
     private PlayerTerritory playerTerritory;
+    private PlayerUtilities playerUtilities;
 
     public TaskFly(Plugin plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
 
         playerTerritory = new PlayerTerritory(plugin, player);
+        playerUtilities = new PlayerUtilities(plugin, player);
     }
 
     @Override
     public void run() {
-        // TODO: Esta en su territorio?
-        if (playerTerritory.isInOwnTerritory()) {
-            player.setAllowFlight(true);
-            player.setFlying(true);
-            player.sendMessage("volar es volar");
-        }
-        else {
-            player.setFlying(false);
-            player.sendMessage("nope");
+        if (player.isOp())
+            return;
+
+        boolean isAllowFlying = player.getAllowFlight();
+
+        boolean isDisableEnemyNear = plugin.getConfig().getBoolean("disable-enemy-near.enable");
+
+        // Esta en cerca de un enemigo?
+        boolean isEnemyNearby = playerUtilities.isEnemyNearby(
+                plugin.getConfig().getInt("disable-enemy-near.blocks")
+        );
+
+        if (isEnemyNearby) {
+            if (isAllowFlying) {
+                player.setAllowFlight(false);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.not-flying-enemy-near")));
+            }
         }
 
-        // TODO: Esta en territorio truce?
-        // TODO: Esta en territorio aliado?
-        // TODO: Esta en serca de un enemigo?
+
+        // Esta en su territorio?
+        else if (player.hasPermission("ffly.own") && playerTerritory.isInOwnTerritory()) {
+            if (!isAllowFlying) {
+                player.setAllowFlight(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.flying-own")));
+            }
+        }
+
+        // Esta en territorio truce?
+        else if (player.hasPermission("ffly.truce") && playerTerritory.isInTruceTerritory()) {
+            if (!isAllowFlying) {
+                player.setAllowFlight(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.flying-truce")));
+            }
+        }
+
+        // Esta en territorio aliado?
+        else if (player.hasPermission("ffly.ally") && playerTerritory.isInAllyTerritory()) {
+            if (!isAllowFlying) {
+                player.setAllowFlight(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.flying-ally")));
+            }
+        }
+
         // TODO: Esta en combate?
+
+        else {
+            if (isAllowFlying) {
+                player.setAllowFlight(false);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.not-flying")));
+            }
+        }
     }
 }
