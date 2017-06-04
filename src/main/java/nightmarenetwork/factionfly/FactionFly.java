@@ -1,11 +1,12 @@
 package nightmarenetwork.factionfly;
 
+import nightmarenetwork.factionfly.Tasks.TaskFly;
 import org.bukkit.plugin.java.JavaPlugin;
-import nightmarenetwork.factionfly.Events.EventFlyTask;
 
 import java.io.File;
 
 public final class FactionFly extends JavaPlugin {
+    private TaskFly taskFly;
 
     @Override
     public void onEnable() {
@@ -14,21 +15,23 @@ public final class FactionFly extends JavaPlugin {
 
         File config = new File(getDataFolder() + File.separator + "config.yml");
 
-        if (!config.exists()) {
-            //getConfig().options().copyDefaults(true);
-            //saveConfig();
+        if (!config.exists())
             saveDefaultConfig();
-        }
 
-        // Events
+        // Tasks
         //
 
-        EventFlyTask eventFlyTask = new EventFlyTask(this);
-        getServer().getPluginManager().registerEvents(eventFlyTask, this);
+        enableTask();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        taskFly.cancel();
+    }
+
+    private void enableTask() {
+        taskFly = new TaskFly(this);
+        int flyCheck = this.getConfig().getInt("fly-check");
+        taskFly.runTaskTimer(this, 0, 20 * flyCheck);
     }
 }

@@ -22,7 +22,7 @@ public class PlayerUtilities {
     }
 
     public List<Player> getPlayersWithin(Player player, int distance) {
-        List<Player> res = new ArrayList<Player>();
+        List<Player> res = new ArrayList<>();
         int d2 = distance * distance;
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             if (p.getWorld() == player.getWorld() && p.getLocation().distanceSquared(player.getLocation()) <= d2) {
@@ -46,8 +46,6 @@ public class PlayerUtilities {
 
                 Rel rel = factionPlayerNear.getRelationWish(factionObserverPlayer);
                 Rel rel2 = factionObserverPlayer.getRelationWish(factionPlayerNear);
-
-                //player.sendMessage("1) rel.getName(): " + rel.getName());
 
                 if (rel.getName().equalsIgnoreCase("enemy") || rel2.getName().equalsIgnoreCase("enemy")){
                     return true;
