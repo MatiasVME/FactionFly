@@ -16,12 +16,18 @@ public class TaskFly extends BukkitRunnable {
     private PlayerTerritory playerTerritory;
     private PlayerUtilities playerUtilities;
 
+    private boolean isEnableEnemyNear;
+    private int enemyNearBlocks;
+
     public TaskFly(Plugin plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
 
         playerTerritory = new PlayerTerritory(plugin, player);
         playerUtilities = new PlayerUtilities(plugin, player);
+
+        isEnableEnemyNear = plugin.getConfig().getBoolean("enemy-near.enable");
+        enemyNearBlocks = plugin.getConfig().getInt("enemy-near.blocks");
     }
 
     @Override
@@ -30,25 +36,25 @@ public class TaskFly extends BukkitRunnable {
             return;
 
         boolean isAllowFlying = player.getAllowFlight();
-
-        boolean isDisableEnemyNear = plugin.getConfig().getBoolean("disable-enemy-near.enable");
+        boolean isEnemyNearby = false;
 
         // Esta en cerca de un enemigo?
-        boolean isEnemyNearby = playerUtilities.isEnemyNearby(
-                plugin.getConfig().getInt("disable-enemy-near.blocks")
-        );
+        if (isEnableEnemyNear) {
+            isEnemyNearby = playerUtilities.isEnemyNearby(enemyNearBlocks);
 
-        if (isEnemyNearby) {
-            if (isAllowFlying) {
-                player.setAllowFlight(false);
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.not-flying-enemy-near")));
+            if (isEnemyNearby) {
+                if (isAllowFlying) {
+                    player.setAllowFlight(false);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            plugin.getConfig().getString("messages.not-flying-enemy-near")));
+                }
             }
         }
 
 
         // Esta en su territorio?
-        else if (player.hasPermission("ffly.own") && playerTerritory.isInOwnTerritory()) {
+        if (player.hasPermission("ffly.own") && playerTerritory.isInOwnTerritory()
+                && !isEnemyNearby) {
             if (!isAllowFlying) {
                 player.setAllowFlight(true);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -77,7 +83,7 @@ public class TaskFly extends BukkitRunnable {
         // TODO: Esta en combate?
 
         else {
-            if (isAllowFlying) {
+            if (isAllowFlying && !isEnemyNearby) {
                 player.setAllowFlight(false);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         plugin.getConfig().getString("messages.not-flying")));

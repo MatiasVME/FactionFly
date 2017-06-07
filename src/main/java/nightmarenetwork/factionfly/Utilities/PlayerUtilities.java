@@ -22,7 +22,7 @@ public class PlayerUtilities {
     }
 
     public List<Player> getPlayersWithin(Player player, int distance) {
-        List<Player> res = new ArrayList<Player>();
+        List<Player> res = new ArrayList<>();
         int d2 = distance * distance;
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             if (p.getWorld() == player.getWorld() && p.getLocation().distanceSquared(player.getLocation()) <= d2) {

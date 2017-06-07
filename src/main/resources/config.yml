@@ -11,7 +11,7 @@ worlds:
   - world_nether
   - world_the_end
 
-disable-enemy-near:
+enemy-near:
   enable: true
   blocks: 32
 

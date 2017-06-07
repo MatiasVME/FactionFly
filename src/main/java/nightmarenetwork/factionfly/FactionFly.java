@@ -14,11 +14,8 @@ public final class FactionFly extends JavaPlugin {
 
         File config = new File(getDataFolder() + File.separator + "config.yml");
 
-        if (!config.exists()) {
-            //getConfig().options().copyDefaults(true);
-            //saveConfig();
+        if (!config.exists())
             saveDefaultConfig();
-        }
 
         // Events
         //

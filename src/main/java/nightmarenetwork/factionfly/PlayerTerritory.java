@@ -34,12 +34,14 @@ public class PlayerTerritory {
 
         if (isAPermittedWold) {
             MPlayer mplayer = MPlayer.get(player);
-            Faction faction;
+
 
             Location location = player.getLocation();
-            faction = BoardColl.get().getFactionAt(PS.valueOf(location));
+            Faction fac1 = BoardColl.get().getFactionAt(PS.valueOf(location));
 
-            if (faction.getName().equals(mplayer.getFactionName())) {
+            if (fac1.getName().equals(mplayer.getFactionName())
+                    && !fac1.getName().equalsIgnoreCase("safezone")
+                    && !fac1.getName().equalsIgnoreCase("warzone")) {
                 return true;
             }
         }
@@ -52,14 +54,17 @@ public class PlayerTerritory {
 
         if (isAPermittedWold) {
             MPlayer mplayer = MPlayer.get(player);
-            Faction faction;
 
             Location location = player.getLocation();
-            faction = BoardColl.get().getFactionAt(PS.valueOf(location));
+            Faction fac1 = BoardColl.get().getFactionAt(PS.valueOf(location));
+            Faction fac2 = mplayer.getFaction();
 
-            Rel rel = faction.getRelationWish(mplayer.getFaction());
+            Rel rel1 = fac1.getRelationWish(mplayer.getFaction());
+            Rel rel2 = fac2.getRelationWish(fac1);
 
-            if (rel.getName().equalsIgnoreCase("truce"))
+            if (rel1.getName().equalsIgnoreCase("truce") && rel2.getName().equalsIgnoreCase("truce")
+                    && !fac1.getName().equalsIgnoreCase("safezone")
+                    && !fac1.getName().equalsIgnoreCase("warzone"))
                 return true;
         }
 
@@ -71,14 +76,17 @@ public class PlayerTerritory {
 
         if (isAPermittedWold) {
             MPlayer mplayer = MPlayer.get(player);
-            Faction faction;
 
             Location location = player.getLocation();
-            faction = BoardColl.get().getFactionAt(PS.valueOf(location));
+            Faction fac1 = BoardColl.get().getFactionAt(PS.valueOf(location));
+            Faction fac2 = mplayer.getFaction();
 
-            Rel rel = faction.getRelationWish(mplayer.getFaction());
+            Rel rel = fac1.getRelationWish(mplayer.getFaction());
+            Rel rel2 = fac2.getRelationWish(fac1);
 
-            if (rel.getName().equalsIgnoreCase("ally"))
+            if (rel.getName().equalsIgnoreCase("ally") && rel2.getName().equalsIgnoreCase("ally")
+                    && !fac1.getName().equalsIgnoreCase("safezone")
+                    && !fac1.getName().equalsIgnoreCase("warzone"))
                 return true;
         }
 
@@ -89,7 +97,6 @@ public class PlayerTerritory {
         String playerWorld = player.getWorld().getName();
 
         for (String world : worlds) {
-            //player.sendMessage(world);
             if (playerWorld.equalsIgnoreCase(world)) return true;
         }
 
