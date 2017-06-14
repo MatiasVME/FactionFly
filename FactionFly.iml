@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="FactionFly" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="nightmarenetwork" external.system.module.version="1.0.0-BETA2" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="FactionFly" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="nightmarenetwork" external.system.module.version="1.0.0-RC1" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -23,28 +23,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.guava:guava:18.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.3.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
-    <orderEntry type="library" name="Gradle: javax.persistence:persistence-api:1.0" level="project" />
-    <orderEntry type="library" name="Gradle: junit:junit:4.10" level="project" />
-    <orderEntry type="library" name="Gradle: net.md-5:bungeecord-chat:1.10-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
-    <orderEntry type="library" name="Gradle: org.avaje:ebean:2.8.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
-    <orderEntry type="module-library">
-      <library name="Gradle: MassiveCore">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/MassiveCore.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Gradle: net.md-5:bungeecord-chat:1.12-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.18" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="module-library">
       <library name="Gradle: Factions">
         <CLASSES>
@@ -54,5 +38,19 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: MassiveCore">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/MassiveCore.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
+    <orderEntry type="library" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: junit:junit:4.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
   </component>
 </module>

@@ -1,5 +1,6 @@
 package nightmarenetwork.factionfly;
 
+import nightmarenetwork.factionfly.Config.Config;
 import org.bukkit.plugin.java.JavaPlugin;
 import nightmarenetwork.factionfly.Events.EventFlyTask;
 
@@ -12,15 +13,20 @@ public final class FactionFly extends JavaPlugin {
         // Config.yml
         //
 
-        File config = new File(getDataFolder() + File.separator + "config.yml");
+        File fileConfig = new File(getDataFolder() + File.separator + "config.yml");
 
-        if (!config.exists())
+        if (!fileConfig.exists())
             saveDefaultConfig();
+
+        // Config.java
+        //
+
+        Config config = new Config(this);
 
         // Events
         //
 
-        EventFlyTask eventFlyTask = new EventFlyTask(this);
+        EventFlyTask eventFlyTask = new EventFlyTask(this, config);
         getServer().getPluginManager().registerEvents(eventFlyTask, this);
     }
 

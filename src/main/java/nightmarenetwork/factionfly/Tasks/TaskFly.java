@@ -1,5 +1,6 @@
 package nightmarenetwork.factionfly.Tasks;
 
+import nightmarenetwork.factionfly.Config.Config;
 import nightmarenetwork.factionfly.PlayerTerritory;
 import nightmarenetwork.factionfly.Utilities.PlayerUtilities;
 import org.bukkit.ChatColor;
@@ -13,21 +14,24 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class TaskFly extends BukkitRunnable {
     private Plugin plugin;
     private Player player;
+    private Config config;
+
     private PlayerTerritory playerTerritory;
     private PlayerUtilities playerUtilities;
 
     private boolean isEnableEnemyNear;
     private int enemyNearBlocks;
 
-    public TaskFly(Plugin plugin, Player player) {
+    public TaskFly(Plugin plugin, Player player, Config config) {
         this.plugin = plugin;
         this.player = player;
+        this.config = config;
 
-        playerTerritory = new PlayerTerritory(plugin, player);
+        playerTerritory = new PlayerTerritory(plugin, player, config);
         playerUtilities = new PlayerUtilities(plugin, player);
 
-        isEnableEnemyNear = plugin.getConfig().getBoolean("enemy-near.enable");
-        enemyNearBlocks = plugin.getConfig().getInt("enemy-near.blocks");
+        isEnableEnemyNear = config.isEnemyNearEnable();
+        enemyNearBlocks = config.getEnemyNearBlocks();
     }
 
     @Override
@@ -46,7 +50,7 @@ public class TaskFly extends BukkitRunnable {
                 if (isAllowFlying) {
                     player.setAllowFlight(false);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            plugin.getConfig().getString("messages.not-flying-enemy-near")));
+                            config.getNotFliyingEnemyNear()));
                 }
             }
         }
@@ -58,7 +62,7 @@ public class TaskFly extends BukkitRunnable {
             if (!isAllowFlying) {
                 player.setAllowFlight(true);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.flying-own")));
+                        config.getFliyingOwn()));
             }
         }
 
@@ -67,7 +71,7 @@ public class TaskFly extends BukkitRunnable {
             if (!isAllowFlying) {
                 player.setAllowFlight(true);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.flying-truce")));
+                        config.getFliyingTruce()));
             }
         }
 
@@ -76,7 +80,7 @@ public class TaskFly extends BukkitRunnable {
             if (!isAllowFlying) {
                 player.setAllowFlight(true);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.flying-ally")));
+                        config.getFliyingAlly()));
             }
         }
 
@@ -86,7 +90,7 @@ public class TaskFly extends BukkitRunnable {
             if (isAllowFlying && !isEnemyNearby) {
                 player.setAllowFlight(false);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.not-flying")));
+                        config.getNotFliying()));
             }
         }
     }

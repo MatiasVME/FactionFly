@@ -5,11 +5,11 @@ import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.ps.PS;
+import nightmarenetwork.factionfly.Config.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,15 +18,17 @@ import java.util.List;
 public class PlayerTerritory {
     private Player player;
     private Plugin plugin;
+    private Config config;
 
     private List<String> worlds;
 
-    public PlayerTerritory (Plugin plugin, Player player) {
+    public PlayerTerritory (Plugin plugin, Player player, Config config) {
         this.player = player;
         this.plugin = plugin;
+        this.config = config;
 
-        this.worlds = new ArrayList<>();
-        worlds = this.plugin.getConfig().getStringList("worlds");
+        //this.worlds = new ArrayList<>();
+        worlds = config.getWorlds();
     }
 
     public boolean isInOwnTerritory() {
